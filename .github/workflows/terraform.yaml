@@ -12,6 +12,15 @@ on:
           - true
           - false
 
+        plan_destroy:
+        description: 'Planejar o destroy do ambiente?'
+        required: true
+        default: 'false'
+        type: choice
+        options:
+          - true
+          - false 
+
       destroy:
         description: 'Destruir ambiente?'
         required: true
@@ -59,15 +68,10 @@ jobs:
       - name: Terraform Plan
         run: terraform plan -out=tfplan
       
-      - name: Terraform Apply
-        run: terraform apply -auto-approve tfplan
-        if: github.event.inputs.apply == 'true'
+      - name: Terraform Plan Destroy
+        if: github.event.inputs.plan_destroy == 'true'
+        run: terraform plan -destroy -out=tfplandestroy
 
       - name: Terraform Destroy
-        run: terraform apply -destroy -auto-approve tfplandestroy
         if: github.event.inputs.destroy == 'true'
-
-      - name: Plan Destroy
-        run: terraform plan -destroy -out=tfplandestroy
-        if: github.event.inputs.plan_destroy == 'true'
-
+        run: terraform apply -auto-approve tfplandestroy

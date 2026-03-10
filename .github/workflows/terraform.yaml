@@ -12,7 +12,7 @@ on:
           - true
           - false
 
-        plan_destroy:
+      plan_destroy:
         description: 'Planejar o destroy do ambiente?'
         required: true
         default: 'false'
@@ -29,15 +29,7 @@ on:
         options:
           - true
           - false
-
-      plan_destroy:
-        description: 'Planejar o destroy do ambiente?'
-        required: true
-        default: 'false'
-        type: choice
-        options:
-          - true
-          - false          
+          
 permissions:
   id-token: write
   contents: read

@@ -2,6 +2,7 @@ resource "aws_instance" "website-server" {
   ami                    = "ami-0b0b78dcacbab728f"
   instance_type          = "t3.micro"
   key_name               = "website-key"
+  user_data = file(user_data.sh)
   vpc_security_group_ids = [aws_security_group.website-sg.id]
 
   iam_instance_profile = aws_iam_instance_profile.ec2_profile.name
